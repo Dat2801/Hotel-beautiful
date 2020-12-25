@@ -45,7 +45,7 @@ public class Program {
                     , hotel.getPerson().getId()
                     , hotel.getDateHotel()
                     , hotel.getCategoryHotel()
-                    , hotel.getPriceHotel());
+                    , hotel.getPriceHotel()+ "vnđ");
         }
     }
 
@@ -84,7 +84,7 @@ public class Program {
                             , hotel.getPerson().getId()
                             , hotel.getDateHotel()
                             , hotel.getCategoryHotel()
-                            , hotel.getPriceHotel());
+                            , hotel.getPriceHotel() + "vnđ");
                 }
             }
         } catch (Exception e) {
