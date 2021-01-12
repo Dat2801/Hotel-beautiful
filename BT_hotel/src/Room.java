@@ -1,17 +1,18 @@
-public class Hotel {
+import java.io.Serializable;
+
+public class Room extends Person implements Serializable {
     private int dateHotel;
     private String categoryHotel;
     private double priceHotel;
-    private Person person;
 
-    public Hotel(){}
-
-    public Hotel(int dateHotel, String categoryHotel, double priceHotel, Person person) {
+    public Room(String name, String date, String id, int dateHotel, String categoryHotel, double priceHotel) {
+        super(name, date, id);
         this.dateHotel = dateHotel;
         this.categoryHotel = categoryHotel;
         this.priceHotel = priceHotel;
-        this.person = person;
     }
+
+    public Room(){}
 
     public int getDateHotel() {
         return dateHotel;
@@ -37,13 +38,6 @@ public class Hotel {
         this.priceHotel = priceHotel;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 
     public double getTotal(){
         return (getDateHotel() * getPriceHotel());
@@ -52,7 +46,7 @@ public class Hotel {
     @Override
     public String  toString() {
         return "--------Thông tin khách thuê--------"+ "\n" +
-                person +
+                 super.toString() +
                 "Số ngày thuê: " + dateHotel + "\n"+
                 "Loại phòng: " + categoryHotel + "\n" +
                 "Giá phòng: " + priceHotel

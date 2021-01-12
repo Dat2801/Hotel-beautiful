@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Person {
+public class Person implements  Serializable  {
 
     private String name;
     private String date;
@@ -37,25 +38,6 @@ public class Person {
     public void setId(String  id) {
         this.id = id;
     }
-
-    public Person addPerson() {
-        Scanner scanner = new Scanner(System.in);
-        Person person = new Person();
-
-        System.out.println("Nhập tên người thuê");
-        String name = scanner.nextLine();
-        person.setName(name);
-
-        System.out.println("Nhập ngày sinh người thuê");
-        String date = scanner.nextLine();
-        person.setDate(date);
-
-        System.out.println("Nhập chứng minh thư");
-        String id = scanner.nextLine();
-        person.setId(id);
-        return person;
-    }
-
     @Override
     public String toString() {
         return

@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Program program = new Program();
+    static ArrayList<Room> r = ReadWriterFile.readFile();
+    static ProgramManager programManager = new ProgramManager(r);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -13,30 +15,130 @@ public class Main {
             System.out.println("2. Hiển thị khách thuê");
             System.out.println("3. Tìm kiếm khách thuê");
             System.out.println("4. Xóa khách thuê");
-            System.out.println("5. Thanh toán phòng");
-            System.out.println("6. Thoát");
+            System.out.println("5. Sửa thông tin khách thuê");
+            System.out.println("6. Thanh toán phòng");
+            System.out.println("7. Thoát");
             choice = Integer.parseInt(scanner.nextLine());
 
-            switch (choice){
+            switch (choice) {
                 case 1:
-                    program.addHotel();
+                    add();
                     break;
                 case 2:
-                    program.showHotel();
+                    programManager.showRoom();
                     break;
                 case 3:
-                    program.searchHotel();
+                    search();
                     break;
                 case 4:
-                    program.deleteHotel();
+                    delete();
                     break;
                 case 5:
-                    program.billHotel();
+                    edit();
                     break;
                 case 6:
+                    bill();
+                    break;
+                case 7:
                     System.exit(0);
                     break;
             }
-        }while (true);
+        } while (true);
+    }
+
+    public static void add() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Nhập tên người thuê");
+        String name = scanner.nextLine();
+
+        System.out.println("Nhập ngày sinh người thuê");
+        String date = scanner.nextLine();
+
+        System.out.println("Nhập chứng minh thư");
+        String id = scanner.nextLine();
+
+        System.out.println("Nhập ngày trọ");
+        int dateHotel = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Nhập loại phòng");
+        String categoryHotel = scanner.nextLine();
+
+        System.out.println("Nhập giá phòng");
+        double priceHotel = Double.parseDouble(scanner.nextLine());
+
+        Room room = new Room(name, date, id, dateHotel, categoryHotel, priceHotel);
+        programManager.addHotel(room);
+        System.out.println("------->Thêm mới thành công<-------");
+    }
+
+    public static void delete() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Nhập vào số chứng minh thư");
+            String id = scanner.nextLine();
+            programManager.deleteRoom(id);
+
+        } catch (Exception e) {
+            System.out.println("Nhập sai mời nhập lại");
+        }
+    }
+
+    public static void search() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Nhập vào số chứng minh thư");
+            String id = scanner.nextLine();
+            programManager.searchRoom(id);
+        } catch (Exception e) {
+
+            System.out.println("Nhập sai mời nhập lại");
+        }
+    }
+
+    public static void bill() {
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Nhập vào số chứng minh thư");
+            String id = scanner.nextLine();
+            programManager.billRoom(id);
+        } catch (Exception e) {
+            System.out.println("Nhập sai mời nhập lại");
+        }
+    }
+
+    public static void edit() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Nhập vào số chứng minh thư");
+        String index = scanner.nextLine();
+        for (int i = 0; i < programManager.getRooms().size(); i++) {
+            if (index.equals(programManager.getRooms().get(i).getId())) {
+                System.out.println(programManager.getRooms().get(i));
+
+                System.out.println("--------Nhập vào để sửa-------");
+
+                System.out.println("Nhập tên người thuê");
+                String name = scanner.nextLine();
+
+                System.out.println("Nhập ngày sinh người thuê");
+                String date = scanner.nextLine();
+
+                System.out.println("Nhập chứng minh thư");
+                String id = scanner.nextLine();
+
+                System.out.println("Nhập ngày trọ");
+                int dateHotel = Integer.parseInt(scanner.nextLine());
+
+                System.out.println("Nhập loại phòng");
+                String categoryHotel = scanner.nextLine();
+
+                System.out.println("Nhập giá phòng");
+                double priceHotel = Double.parseDouble(scanner.nextLine());
+
+                Room room = new Room(name, date, id, dateHotel, categoryHotel, priceHotel);
+                programManager.editRoom(i, room);
+                System.out.println("-------->Sửa thành công<--------");
+            }
+        }
     }
 }
